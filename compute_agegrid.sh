@@ -49,7 +49,7 @@ verbose_mode=no					# Show GMT -V output. Options: yes, no
 data_dir=AgeGridInput
 
 # ---- Files for creating agegrid
-rotation_file=${data_dir}/Global_410-0Ma_Rotations_2019_v3.rot
+rotation_file=${data_dir}/Global_250-0Ma_Rotations_2019_v3.rot
 ridge_file=${data_dir}/Global_EarthByte_GeeK07_Ridges_2019_v3.gpml
 isochron_file=${data_dir}/Global_EarthByte_GeeK07_Isochrons_2019_v3.gpml
 isocob_file=${data_dir}/Global_EarthByte_GeeK07_IsoCOB_2019_v3.gpml
@@ -232,7 +232,7 @@ gmt blockmedian ${infile} -I${grdspace} -R${framegrid} ${verbose} > ${dir}/tmp-$
 echo "    Running sphinterpolate. This may take a while..."
 # Use spherical interpolation in GMT 6+ to produce global grid (note that it takes about 20 minutes for a 6-arc-min grid)
 # Note: in GMT6.0 and 6.1, this actually takes 8 hours. This is now fixed for GMT6.2+ (fixed in GMT 6.2.0_6830bc9_2020.09.27)
-gmt sphinterpolate ${dir}/tmp-${age}.xyz -R${framegrid} -I${grdspace} -Q0 $verbose -G${dir}/tmp.grd?"age"
+gmt sphinterpolate ${dir}/tmp-${age}.xyz -R${framegrid} -D -I${grdspace} -Q0 $verbose -G${dir}/tmp.grd?"age"
 
 # Ensure that there are no negative values in the age-grid that are introduced by interpolation
 gmt grdclip ${dir}/tmp.grd ${verbose} -Sb0.01/0.01 -G${grdfile}
